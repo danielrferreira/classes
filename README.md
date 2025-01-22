@@ -1,2 +1,9 @@
 # Classes
-- [Linear Algebra](https://github.com/danielrferreira/classes/tree/main/linear%20algebra)
+
+This repositoriy has material I use in some classes I teach:
+
+IK:
+- [Linear Algebra](https://github.com/danielrferreira/classes/tree/main/IK/linear%20algebra)
+
+ASN:
+- [Time Series]()
