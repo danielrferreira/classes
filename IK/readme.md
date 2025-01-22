@@ -1,0 +1,1 @@
+This folder doesn't not contain any of the decks and notebooks created by other teachers. It only contain my own notes and codes used as extra in classes.
