@@ -54,13 +54,9 @@ plot_lancamentos <- function(data, title = "Lançamentos ao longo do tempo") {
 # Plotar lancamentos
 plot_lancamentos((lancamentos))
 
-# Tratamento de Missings, Reparem que o gráfico esconde a falta de uma data:
-lancamentos <- lancamentos[-(nrow(lancamentos) - 2), ]
-plot_lancamentos((lancamentos))
-
 # Código para checar se falta data:
-all_months <- seq.Date(from = floor_date(min(df$date_added), "month"),
-                       to = floor_date(max(df$date_added), "month"),
+all_months <- seq.Date(from = min(lancamentos$month),
+                       to = max(lancamentos$month),
                        by = "month")
 missing_months <- setdiff(all_months, lancamentos$month)
 missing_months <- as.Date(missing_months)
@@ -78,9 +74,26 @@ lancamentos <- lancamentos %>%
 
 plot_lancamentos((lancamentos))
 
+# Tratamento de Missings, Reparem que o gráfico esconde a falta de uma data:
+lancamentos <- lancamentos[-(nrow(lancamentos) - 2), ]
+plot_lancamentos((lancamentos))
+
+all_months <- seq.Date(from = min(lancamentos$month),
+                       to = max(lancamentos$month),
+                       by = "month")
+missing_months <- setdiff(all_months, lancamentos$month)
+missing_months <- as.Date(missing_months)
+
+if (length(missing_months) == 0) {
+  print("Nenhum mês faltando.")
+} else {
+  print("Meses faltando:")
+  print(format(missing_months, "%Y-%m"))
+}
+
 # Código para checar se falta data:
-all_months <- seq.Date(from = as.Date("2016-01-01"),
-                       to = floor_date(max(df$date_added), "month"),
+all_months <- seq.Date(from = min(lancamentos$month),
+                       to = max(lancamentos$month),
                        by = "month")
 missing_months <- setdiff(all_months, lancamentos$month)
 missing_months <- as.Date(missing_months) 
@@ -99,9 +112,9 @@ lancamentos_zero <- left_join(data.frame(month = all_months), lancamentos, by = 
 plot_lancamentos((lancamentos_zero))
 
 # Forward Fill
-lancamentos_ffill <- zoo(lancamentos$count, lancamentos$month)
+lancamentos_ffill <- merge(zoo(lancamentos$count, lancamentos$month), zoo(, all_months), all = TRUE)
 lancamentos_ffill <- na.locf(lancamentos_ffill, fromLast = FALSE)
-
+print(lancamentos_ffill)
 lancamentos_ffill_df <- data.frame(
   month = index(lancamentos_ffill),
   count = coredata(lancamentos_ffill)
@@ -109,7 +122,7 @@ lancamentos_ffill_df <- data.frame(
 plot_lancamentos((lancamentos_ffill_df))
 
 # Backward Fill
-lancamentos_bfill <- zoo(lancamentos$count, lancamentos$month)
+lancamentos_bfill <- merge(zoo(lancamentos$count, lancamentos$month), zoo(, all_months), all = TRUE)
 lancamentos_bfill <- na.locf(lancamentos_bfill, fromLast = TRUE)
 lancamentos_bfill_df <- data.frame(
   month = index(lancamentos_bfill),
@@ -118,7 +131,7 @@ lancamentos_bfill_df <- data.frame(
 plot_lancamentos((lancamentos_bfill_df))
 
 # Linear
-lancamentos_linear <- zoo(lancamentos$count, lancamentos$month)
+lancamentos_linear <- merge(zoo(lancamentos$count, lancamentos$month), zoo(, all_months), all = TRUE)
 lancamentos_linear <- na.approx(lancamentos_linear, method = "linear")
 lancamentos_linear_df <- data.frame(
   month = index(lancamentos_linear),
