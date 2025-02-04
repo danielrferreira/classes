@@ -19,3 +19,15 @@ $$
 $$
 \Large \hat{Y}_{t} = \alpha Y_t + (1 - \alpha) \hat{Y}_{t-1} 
 $$
+
+$$
+\Large \hat{Y}_{t-1} = \alpha Y_{t-1} + (1 - \alpha) \hat{Y}_{t-2} 
+$$
+
+$$
+\Large \hat{Y}_{t} = \alpha Y_t + (1 - \alpha) \alpha Y_{t-1} + (1 - \alpha) \hat{Y}_{t-2} 
+$$
+
+$$
+\Large \hat{Y}_{t} = \alpha Y_t + (1 - \alpha) \alpha Y_{t-1} + (1 - \alpha)^2 \alpha Y_{t-2} + ...
+$$
