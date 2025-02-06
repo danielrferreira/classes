@@ -25,9 +25,9 @@ $$
 $$
 
 $$
-\Large \hat{Y}_{t} = \alpha Y_{t-1} + (1 - \alpha) \alpha Y_{t-2} + (1 - \alpha) \hat{Y}_{t-2} 
+\Large \hat{Y}_{t} = \alpha Y_{t-1} + (1 - \alpha)(\alpha Y_{t-2} + (1 - \alpha) \hat{Y}_{t-2})=\alpha Y_{t-1} + (1 - \alpha) \alpha Y_{t-2} + (1 - \alpha)^2 \hat{Y}_{t-2} 
 $$
 
 $$
-\Large \hat{Y}_{t} = \alpha Y_{t-1} + (1 - \alpha) \alpha Y_{t-2} + (1 - \alpha)^2 \alpha Y_{t-3} + ...
+\Large \hat{Y}_{t} = \alpha Y_{t-1} + (1 - \alpha) \alpha Y_{t-2} + (1 - \alpha)^2 \alpha Y_{t-3} + (1 - \alpha)^3 \alpha Y_{t-4} + ...
 $$
