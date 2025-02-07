@@ -29,5 +29,20 @@ $$
 $$
 
 $$
-\Large \hat{Y}_{t} = \alpha Y_{t-1} + (1 - \alpha) \alpha Y_{t-2} + (1 - \alpha)^2 \alpha Y_{t-3} + (1 - \alpha)^3 \alpha Y_{t-4} + ...
+\Large \hat{Y}_{t} = \alpha Y_{t-1} + (1 - \alpha) \alpha Y_{t-2} + (1 - \alpha)^2 \alpha Y_{t-3} + (1 - \alpha)^3 \alpha Y_{t-4} + \ldots
+$$
+
+Alternative [here](https://otexts.com/fpp2/ses.html)
+![alt text](image.png)
+
+# Decomposição Aditiva
+
+$$
+\Large y_{t} = T_{t} + S_{t} + R_{t}
+$$
+
+# Decomposição Multiplicativa
+
+$$
+\Large y_{t} = T_{t} \times S_{t}  \times  R_{t}
 $$
