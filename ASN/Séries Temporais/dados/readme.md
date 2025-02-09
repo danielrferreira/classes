@@ -2,3 +2,4 @@
 - [Netflix](https://www.kaggle.com/datasets/anandshaw2001/netflix-movies-and-tv-shows/code)
 - [CO2 Emissions](https://ourworldindata.org/co2-emissions)
 - [Clicks e-commerce](https://archive.ics.uci.edu/dataset/553/clickstream+data+for+online+shopping)
+- [Closing Price](https://github.com/PacktPublishing/Time-Series-Analysis-with-Python-Cookbook/blob/main/datasets/Ch9/closing_price.csv)
