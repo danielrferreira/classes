@@ -35,6 +35,25 @@ $$
 Alternative [here](https://otexts.com/fpp2/ses.html)
 ![alt text](image.png)
 
+Outra forma de escrever a fórmula de alisamento exponencial.
+$$
+\Large S_{t} = \alpha Y_{t} + (1 - \alpha) S_{t-1} 
+$$
+$$
+\Large F_{t+1} = S_{t} 
+$$
+
+# Alisamento Exponencial de Holt (Duplo)
+$$
+\Large S_{t} = \alpha Y_{t} + (1 - \alpha) (S_{t-1} + T_{t-1})
+$$
+$$
+\Large T_{t} = \beta (S_t - S_{t-1}) + (1 - \beta)T_{t-1}
+$$
+$$
+\Large F_{t+1} = S_t + T_t
+$$
+
 # Decomposição Aditiva
 
 $$
@@ -45,4 +64,9 @@ $$
 
 $$
 \Large y_{t} = T_{t} \times S_{t}  \times  R_{t}
+$$
+
+# ADF test
+$$
+\Large  \Delta Y_t = \gamma Y_{t-1} + \epsilon_t
 $$
