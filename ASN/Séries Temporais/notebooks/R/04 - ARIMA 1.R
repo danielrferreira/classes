@@ -62,3 +62,63 @@ teste_estacionariedade <- function(s) {
 }
 
 teste_estacionariedade(co2_s)
+
+
+# Operador Lag
+<<<<<<< HEAD
+y_lagged <- lag(y, k = 1)
+=======
+set.seed(42)
+y <- ts(sample(0:19, 10, replace = TRUE), start = c(2025, 1), frequency = 365)
+# Operador Lag
+y_lagged <- stats::lag(y,1)
+>>>>>>> 30a023f (R code final)
+
+# Função para testar estacionariedade
+teste_estacionariedade <- function(s) {
+  kpss_test <- ur.kpss(s)
+  adf_test <- adf.test(s)
+  
+  kpss_pv <- kpss_test@teststat
+  adf_pv <- adf_test$p.value
+  
+  kpssh <- ifelse(kpss_pv < 0.05, "Não Estacionário", "Estacionário")
+  adfh <- ifelse(adf_pv < 0.05, "Estacionário", "Não Estacionário")
+  
+  return(c(KPSS = kpssh, ADF = adfh))
+}
+
+teste_estacionariedade(co2_s)
+
+# Transformacoes
+serie_original <- co2_s
+primeira_ordem <- diff(serie_original)
+
+segunda_ordem <- diff(diff(serie_original))
+
+diff_sazonal <- diff(serie_original, lag = 12)
+
+log_diff <- diff(log(serie_original))
+
+boxcox_result <- boxcox(serie_original ~ 1)
+
+# ACF e PACF
+Acf(y)
+
+Pacf(y)
+
+# Teste de correlação dos lags
+ljung_box_test <- Box.test(co2_s, lag = 10, type = "Ljung-Box")
+ljung_box_test
+
+
+# Modelos AR
+
+# AR(1)
+model <- Arima(primeira_ordem, order = c(1, 0, 0), include.constant = FALSE)
+summary(model)
+
+# AR(3)
+model <- Arima(primeira_ordem, order = c(3, 0, 0), include.constant = FALSE)
+summary(model)
+
