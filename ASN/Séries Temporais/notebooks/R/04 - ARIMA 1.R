@@ -7,6 +7,8 @@ library(readr)
 library(zoo)
 library(tseries)
 library(urca)
+library(MASS)
+library(forecast)
 
 # CO2 Data
 co2_df <- data.frame(co2 = as.numeric(co2))  # Garante que os dados estejam no formato correto
@@ -45,7 +47,11 @@ for (i in seq_along(todas_series)) {
 par(mfrow = c(1, 1))
 
 # Operador Lag
-y_lagged <- lag(y, k = 1)
+
+set.seed(42)
+y <- ts(sample(0:19, 10, replace = TRUE), start = c(2025, 1), frequency = 365)
+# Operador Lag
+y_lagged <- stats::lag(y,1)
 
 # Função para testar estacionariedade
 teste_estacionariedade <- function(s) {
@@ -63,16 +69,6 @@ teste_estacionariedade <- function(s) {
 
 teste_estacionariedade(co2_s)
 
-
-# Operador Lag
-<<<<<<< HEAD
-y_lagged <- lag(y, k = 1)
-=======
-set.seed(42)
-y <- ts(sample(0:19, 10, replace = TRUE), start = c(2025, 1), frequency = 365)
-# Operador Lag
-y_lagged <- stats::lag(y,1)
->>>>>>> 30a023f (R code final)
 
 # Função para testar estacionariedade
 teste_estacionariedade <- function(s) {
