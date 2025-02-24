@@ -1,6 +1,6 @@
 import numpy as np
 
-def generate_ar_series(ar_params, n_samples=100, burn_in=50, noise_std=1.0):
+def generate_ar_series(ar_params, n_samples=100, burn_in=50, noise_std=0.5):
     """
     Generate a synthetic time series from an AR(p) process.
     
@@ -26,7 +26,7 @@ def generate_ar_series(ar_params, n_samples=100, burn_in=50, noise_std=1.0):
     
     return series[burn_in:]  # Remove burn-in period
 
-def generate_ma_series(ma_params, n_samples=100, burn_in=50, noise_std=1.0):
+def generate_ma_series(ma_params, n_samples=100, burn_in=50, noise_std=0.5):
     """
     Generate a synthetic time series from an MA(q) process.
     
