@@ -6,24 +6,47 @@ from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 from statsmodels.tsa.stattools import adfuller, kpss
 import warnings
 
-def all_ac(Y, lags = 15):
-    fig, ax = plt.subplots(1, 2, figsize=(16,5))
+def all_ac(Y, lags=15):
+    """
+    Plota a Função de Autocorrelação (ACF) e a Função de Autocorrelação Parcial (PACF) para uma série temporal.
+
+    Parâmetros:
+    Y (pd.Series): Série temporal.
+    lags (int): Número de defasagens a serem plotadas. Padrão é 15.
+    """
+    fig, ax = plt.subplots(1, 2, figsize=(16, 5))
     plot_acf(Y, zero=False, ax=ax[0], lags=lags)
     ax[0].set_title('ACF')
-    plot_pacf(Y, zero=False, ax=ax[1],lags=lags)
+    plot_pacf(Y, zero=False, ax=ax[1], lags=lags)
     ax[1].set_title('PACF')
     plt.show()
 
 def plot_forecast(serie_original, previsao):
-    plt.plot(serie_original, label='Serie Histórica', linestyle='-')  
-    plt.plot(previsao, label='Previsão', linestyle='--')  
+    """
+    Plota a série histórica e a previsão.
+
+    Parâmetros:
+    serie_original (pd.Series): Série temporal original.
+    previsao (pd.Series): Série temporal de previsão.
+    """
+    plt.plot(serie_original, label='Serie Histórica', linestyle='-')
+    plt.plot(previsao, label='Previsão', linestyle='--')
     plt.xlabel('Data')
     plt.ylabel('Valores')
     plt.title('Serie histórica com previsão')
     plt.legend()
     plt.show()
-    
+
 def teste_estacionariedade(s):
+    """
+    Realiza testes de estacionariedade KPSS e ADF em uma série temporal.
+
+    Parâmetros:
+    s (pd.Series): Série temporal a ser testada.
+
+    Retorna:
+    tuple: Resultados dos testes KPSS e ADF ('Estacionário' ou 'Não Estacionário').
+    """
     warnings.simplefilter("ignore", category=UserWarning)
     kps = kpss(s)
     adf = adfuller(s)
@@ -36,22 +59,40 @@ def teste_estacionariedade(s):
         kpssh = 'Não Estacionário'
     return (kpssh, adfh)
 
-def diagnostico(model, lags = 15):
+def diagnostico(model, lags=15):
+    """
+    Plota o diagnóstico do modelo e as funções de autocorrelação dos resíduos.
+
+    Parâmetros:
+    model (statsmodels.tsa.arima.model.ARIMAResults): Modelo ajustado.
+    lags (int): Número de defasagens a serem plotadas. Padrão é 15.
+    """
     print(model.summary())
     model.plot_diagnostics()
     plt.show()
     residuo = model.resid
-    residuo = residuo[1:] 
-    all_ac(residuo, lags = lags)
+    residuo = residuo[1:]
+    all_ac(residuo, lags=lags)
     plt.show()
 
-def compara_previsoes(serie_original,previsao_list, model_list):
-    plt.plot(serie_original, label='Serie Histórica', linestyle='-')  
+def compara_previsoes(serie_original, previsao_list, model_list):
+    """
+    Plota a série histórica e múltiplas previsões de diferentes modelos.
+
+    Parâmetros:
+    serie_original (pd.Series): Série temporal original.
+    previsao_list (list of pd.Series): Lista de séries temporais de previsão.
+    model_list (list of str): Lista de nomes dos modelos correspondentes às previsões.
+    """
+    plt.plot(serie_original, label='Serie Histórica', linestyle='-')
     colors = ['blue', 'green', 'red', 'cyan', 'magenta', 'yellow', 'black']
-    for i, (p, m) in enumerate(zip(previsao_list,model_list)):
-        plt.plot(p, label=m, linestyle='--', color=colors[i % len(colors)])  
+    for i, (p, m) in enumerate(zip(previsao_list, model_list)):
+        plt.plot(p, label=m, linestyle='--', color=colors[i % len(colors)])
     plt.xlabel('Data')
     plt.ylabel('Valores')
     plt.title('Serie histórica com previsões')
     plt.legend()
     plt.show()
+
+def diagnostico_SARIMA(model, lags = 25):
+    pass
