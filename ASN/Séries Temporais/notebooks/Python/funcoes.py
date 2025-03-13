@@ -94,5 +94,3 @@ def compara_previsoes(serie_original, previsao_list, model_list):
     plt.legend()
     plt.show()
 
-def diagnostico_SARIMA(model, lags = 25):
-    pass
