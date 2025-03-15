@@ -93,4 +93,19 @@ def compara_previsoes(serie_original, previsao_list, model_list):
     plt.title('Serie histórica com previsões')
     plt.legend()
     plt.show()
+    
+def correlacao_cruzada(y,x, max_lags = 24):
+    correl = []
+    lags = range(-max_lags, max_lags + 1)
+    for l in lags:
+        c = y.corr(x.shift(l))
+        correl.append(c)
+    plt.figure(figsize=(10, 5))
+    plt.stem(lags, correl)
+    plt.xlabel('Lag')
+    plt.title(f'Correlação Cruzada')
+    conf_interval = 1.96 / np.sqrt(len(y))
+    plt.axhline(-conf_interval, color='k', ls='--')
+    plt.axhline(conf_interval, color='k', ls='--')
+    plt.show()
 
