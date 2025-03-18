@@ -94,7 +94,7 @@ def compara_previsoes(serie_original, previsao_list, model_list):
     plt.legend()
     plt.show()
 
-def correlacao_cruzada(y,x, max_lags = 24):
+def correlacao_cruzada(y,x, max_lags = 24, titulo = 'Correlação Cruzada'):
     """
     Calcula e plota a correlação cruzada entre duas séries temporais com defasagens especificadas.
 
@@ -111,7 +111,7 @@ def correlacao_cruzada(y,x, max_lags = 24):
     plt.figure(figsize=(10, 5))
     plt.stem(lags, correl)
     plt.xlabel('Lag')
-    plt.title(f'Correlação Cruzada')
+    plt.title(titulo)
     conf_interval = 1.96 / np.sqrt(len(y))
     plt.axhline(-conf_interval, color='k', ls='--')
     plt.axhline(conf_interval, color='k', ls='--')
