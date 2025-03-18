@@ -93,8 +93,16 @@ def compara_previsoes(serie_original, previsao_list, model_list):
     plt.title('Serie histórica com previsões')
     plt.legend()
     plt.show()
-    
-def correlacao_cruzada(y,x, max_lags = 24):
+
+def correlacao_cruzada(y,x, max_lags = 24, titulo = 'Correlação Cruzada'):
+    """
+    Calcula e plota a correlação cruzada entre duas séries temporais com defasagens especificadas.
+
+    Parâmetros:
+    y (pd.Series): A série temporal dependente.
+    x (pd.Series): A série temporal independente.
+    max_lags (int): O número máximo de defasagens a considerar para a correlação cruzada.
+    """
     correl = []
     lags = range(-max_lags, max_lags + 1)
     for l in lags:
@@ -103,9 +111,22 @@ def correlacao_cruzada(y,x, max_lags = 24):
     plt.figure(figsize=(10, 5))
     plt.stem(lags, correl)
     plt.xlabel('Lag')
-    plt.title(f'Correlação Cruzada')
+    plt.title(titulo)
     conf_interval = 1.96 / np.sqrt(len(y))
     plt.axhline(-conf_interval, color='k', ls='--')
     plt.axhline(conf_interval, color='k', ls='--')
     plt.show()
+    
+def compara_estatisticas(model_list, model_list_names):
+    """
+    Compara métricas estatísticas (BIC, AIC, RMSE) de diferentes modelos.
 
+    Parâmetros:
+    model_list (list): Uma lista de objetos de modelos ajustados.
+    model_list_names (list): Uma lista de nomes correspondentes aos modelos."
+    """
+    for m,n in zip(model_list, model_list_names):
+        rmse = round(np.sqrt(np.mean(m.resid**2)))
+        bic = round(m.bic)
+        aic = round(m.aic)
+        print(f'BIC = {bic} -- AIC = {aic} --  RMSE = {rmse} - {n}')
