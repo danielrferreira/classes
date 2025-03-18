@@ -108,3 +108,10 @@ def correlacao_cruzada(y,x, max_lags = 24):
     plt.axhline(-conf_interval, color='k', ls='--')
     plt.axhline(conf_interval, color='k', ls='--')
     plt.show()
+    
+def compara_estatisticas(model_list, model_list_names):
+    for m,n in zip(model_list, model_list_names):
+        rmse = round(np.sqrt(np.mean(m.resid**2)))
+        bic = round(m.bic)
+        aic = round(m.aic)
+        print(f'BIC = {bic} -- AIC = {aic} --  RMSE = {rmse} - {n}')
