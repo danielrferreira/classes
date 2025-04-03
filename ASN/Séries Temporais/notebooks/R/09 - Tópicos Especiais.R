@@ -26,34 +26,6 @@ train <- ts(train, frequency = 12)
 test <- tail(milk_prod, test_size)
 test <- as.numeric(test)  # Usa os últimos 10% dos dados para teste
 
-# Métricas Penalizadas
-model <- Arima(train, order = c(1,1,0), seasonal = c(0,1,1))
-# Imprimir AIC, BIC, AICC e HQIC do modelo
-cat("AIC:", AIC(model), "\n")
-cat("BIC:", BIC(model), "\n")
-cat("AICC:", AIC(model, k = log(length(milk_prod))), "\n")  # AICC pode ser calculado manualmente
-cat("HQIC:", AIC(model, k = 2*log(log(length(milk_prod)))), "\n")  # HQIC pode ser calculado manualmente
-
-# Métricas Não Penalizadas
-# Calcular resíduos
-predictions <- forecast(model, h = length(test))$mean
-residuals <- test - predictions
-sum_residuals <- sum(residuals)
-
-print(predictions)
-# Calcular métricas de erro
-mae <- mean(abs(test - predictions))
-mape <- mean(abs((test - predictions) / test)) * 100
-mse <- mean((test - predictions)^2)
-rmse <- sqrt(mse)
-
-# Exibir resultados
-cat("Soma dos Resíduos:", sum_residuals, "\n")
-cat("MAE:", mae, "\n")
-cat("MAPE:", mape, "%\n")
-cat("MSE:", mse, "\n")
-cat("RMSE:", rmse, "\n")
-
 # Auto Arima
 auto_model <- auto.arima(milk_prod, 
                          seasonal = TRUE, 
@@ -64,3 +36,27 @@ auto_model <- auto.arima(milk_prod,
                          trace = TRUE)
 
 summary(auto_model)
+
+# Prophet
+library(prophet)
+milk_prod <- data.frame(
+  ds = milk$month, # Datas
+  y = milk_prod  # Valores com sazonalidade
+)
+
+# Ajustando o modelo Prophet
+model <- prophet(milk_prod)
+
+# Fazendo previsões para os próximos 12 meses
+future <- make_future_dataframe(model, periods = 12, freq = "month")
+forecast <- predict(model, future)
+
+# Visualizando as previsões
+plot(model, forecast)
+
+# Visualizando os componentes (tendência e sazonalidade)
+prophet_plot_components(model, forecast)
+
+# Outliers
+milk_prod <- milk_ts$production
+lag.plot(milk_prod, lags = 1, main = "Lag Plot (Lag = 1)")
