@@ -14,7 +14,7 @@ library(ggplot2)
 
 ## Preparação dos dados
 
-df <- read_csv('/Users/danielferreira/Documents/git/classes/ASN/Séries Temporais/dados/netflix_titles.csv')
+df <- read_csv('../../dados/netflix_titles.csv')
 
 head(df)
 

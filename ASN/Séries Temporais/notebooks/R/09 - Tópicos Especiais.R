@@ -5,7 +5,7 @@ library(forecast)
 library(Metrics)
 
 # Carregar os dados
-milk <- read_csv("/Users/danielferreira/Documents/git/classes/ASN/Séries Temporais/dados/milk_production.csv")
+milk <- read_csv("../../dados/milk_production.csv")
 
 # Converter a coluna 'month' para o formato de data (ano-mês)
 milk$month <- yearmonth(milk$month)
