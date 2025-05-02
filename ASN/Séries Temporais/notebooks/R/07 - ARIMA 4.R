@@ -5,7 +5,7 @@ library(dplyr)
 library(forecast)
 
 # Ler o arquivo CSV
-df <- read_csv("/Users/danielferreira/Documents/git/classes/ASN/Séries Temporais/dados/clicks_original.csv")
+df <- read_csv("../../dados/clicks_original.csv")
 # Remover a última linha
 df <- df[-nrow(df), ]
 df$date <- seq(as.Date("2008-07-01"), by = "days", length.out = nrow(df))
@@ -21,7 +21,7 @@ summary(model1)
 
 # Variável de Outlier
 
-df <- read_csv("/Users/danielferreira/Documents/git/classes/ASN/Séries Temporais/dados/clicks_original_bug.csv")
+df <- read_csv("../../dados/clicks_original_bug.csv")
 df$date <- seq(as.Date("2008-07-01"), by = "days", length.out = nrow(df))
 
 # Definir as datas de início e fim

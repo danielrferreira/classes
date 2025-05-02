@@ -7,8 +7,8 @@ library(tibble)
 library(forecast)
 
 # Importação das séries
-Y <- read_csv('/Users/danielferreira/Documents/git/classes/ASN/Séries Temporais/dados/ARIMA_Exemplo.csv')
-milk <- read_csv('/Users/danielferreira/Documents/git/classes/ASN/Séries Temporais/dados/milk_production.csv')
+Y <- read_csv('../../dados/ARIMA_Exemplo.csv')
+milk <- read_csv('../../dados/milk_production.csv')
 milk$mes <- milk$month  
 milk$mes <- ymd(milk$mes)
 milk_ts <- ts(milk$production, start = c(year(min(milk$mes)), month(min(milk$mes))), frequency = 12)
@@ -23,7 +23,7 @@ model2 <- Arima(milk_ts, order = c(1, 1, 0), seasonal = c(0, 1, 1)) # Reparem qu
 summary(model2)
 
 # CCF Plot
-df <- read.csv('/Users/danielferreira/Documents/git/classes/ASN/Séries Temporais/dados/clicks_original.csv')
+df <- read.csv('../../dados/clicks_original.csv')
 
 clicks <- df$clicks
 price <- df$price

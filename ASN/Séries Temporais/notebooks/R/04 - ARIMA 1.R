@@ -21,7 +21,7 @@ data("AirPassengers")
 airp_s <- ts(AirPassengers, start = c(1949, 1), frequency = 12)
 
 # Séries com ações
-file <- "~/Documents/git/classes/ASN/Séries Temporais/dados/closing_price.csv"
+file <- "../../dados/closing_price.csv"
 closing_price <- read_csv(file)
 closing_price$Date <- as.Date(closing_price$Date, format = "%Y-%m-%d")
 closing_price <- closing_price %>% group_by(Date = floor_date(Date, "month")) %>% summarise(across(everything(), mean, na.rm = TRUE))
@@ -31,7 +31,7 @@ microsoft <- ts(closing_price$MSFT, start = c(year(min(closing_price$Date)), mon
 ibm <- ts(closing_price$IBM, start = c(year(min(closing_price$Date)), month(min(closing_price$Date))), frequency = 12)
 
 # Lançamentos Netflix
-netf <- read_csv("~/Documents/git/classes/ASN/Séries Temporais/dados/netflix_titles.csv")
+netf <- read_csv("../../dados/netflix_titles.csv")
 netf$date_added <- as.Date(netf$date_added, format = "%B %d, %Y")
 netflix <- table(floor_date(netf$date_added, "month"))
 netflix <- ts(netflix[names(netflix) >= "2016-01-01"], start = c(2016, 1), frequency = 12)
